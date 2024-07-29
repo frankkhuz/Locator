@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import '../styles.css'
+import '../../src/index.css'
 const Header = ({ setDetails }) => {
   const [query, setQuery] = useState('');
 
@@ -30,7 +31,7 @@ const Header = ({ setDetails }) => {
 
   return (
     <div style={{ backgroundColor: 'blue', height: '20rem', marginTop: '2rem', paddingTop: '1rem' }}>
-      <h2 style={{ color: 'white' }}>IP ADDRESS TRACKER</h2>
+      <h2 className='' style={{ color: 'white' }}>IP ADDRESS TRACKER</h2>
       <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
         <input
           value={query}

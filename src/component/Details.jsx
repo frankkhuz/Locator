@@ -15,7 +15,7 @@ const Details = ({ details }) => {
         <p style={{fontSize:"10px"}}>TIME ZONE</p>
         <p style={{fontSize:"20px"}}> {details.location?.timezone} </p>
         </div>
-        <div style={{width:"25%", }}>
+        <div style={{width:"25%",  height:"6rem"}}>
         <p style={{fontSize:"10px"}}>ISP</p>
         <p style={{fontSize:"20px"}}> {details.isp} </p>
         </div>

@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-
+import '../../src/index.css'
 // Fix for default marker icon issues with webpack
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -11,25 +11,29 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
 });
 
+// Custom hook to handle map view updates
+const ChangeView = ({ center, zoom }) => {
+  const map = useMap();
+  useEffect(() => {
+    if (center) {
+      map.setView(center, zoom);
+    }
+  }, [center, zoom, map]);
+  return null;
+};
+
 const Map = ({ location }) => {
-  const mapRef = useRef(null);
   const { lat, lng, city } = location || {};
 
-  useEffect(() => {
-    if (lat && lng && mapRef.current) {
-      mapRef.current.setView([lat, lng], 13);
-    }
-  }, [lat, lng]);
-
   return (
-    <div style={{ border: '2px solid black', height: '30rem', position: 'relative', backgroundColor: 'black', marginTop: '-10.5rem' }}>
+    <div className='bg' style={{ border: '2px solid black', height: '30rem', position: 'relative', backgroundColor: 'black', marginTop: '-10.5rem' , zIndex: '0'}}>
       {lat && lng && (
         <MapContainer
           center={[lat, lng]}
           zoom={13}
           style={{ height: '100%', width: '100%' }}
-          whenCreated={(mapInstance) => { mapRef.current = mapInstance; }}
         >
+          <ChangeView center={[lat, lng]} zoom={13} />
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import Header from '../component/Header'
 import Details from '../component/Details'
 import Map from '../component/Map'
-
+import '../styles.css'
+import '../index.css'
 const Page = () => {
     const [details,setDetails ] = useState({})
   return (
@@ -12,7 +13,7 @@ const Page = () => {
     <Details details ={details} />
     
     </div>
-    <Map />
+    <Map location={details.location} />
     </div>
     
   )
